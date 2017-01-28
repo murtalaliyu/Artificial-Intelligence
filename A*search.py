@@ -1,10 +1,10 @@
 board = []
 
 #Generate rows with length of 3
-for row in range(10):
+for row in range(120):
 	#Appen a blank list to each row cell
 	board.append([])
-	for column in range(10):
+	for column in range(160):
 		#Assign x to each row
 		board[row].append('x')
 
