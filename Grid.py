@@ -1,22 +1,36 @@
 import Tile
+import Tkinter as tk
 
-grid = []
-status = "1"
-iterator = 1
+root = tk.Tk()
 
-#Generate row of length 120
-for row in range(120):
-    #Append a blank list to each row cell    
-    grid.append([])
-    for column in range(160):
-        #Assign status to each row
-        tile = Tile.make_tile(iterator, [row, column], status)
-        grid[row].append(tile.status)
-        iterator =+ 1
-        
-#Function will print board like an actual board
-def print_grid(grid):
-    for row in grid:
-        print row
+def draw():
+    global gameframe
+    gameframe =tk.Frame(root)
+    gameframe.pack()
 
-print_grid(grid)
+    ID = 1
+    status = "1"
+
+    for row in range(10):
+        for col in range(10):
+            tile = Tile.make_tile(ID, [row, col], status)
+            L = tk.Label(gameframe, text=status, bg="green")
+            L.grid(row=row, column=col, padx='1', pady='1')
+            ID += 1
+            
+draw()
+root.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
