@@ -1,37 +1,7 @@
 import Tile
 import Tkinter as tk
-'''
-root = tk.Tk()
 
-def draw():
-    global frame
-    frame = tk.Frame(root)
-    frame.pack(fill=tk.BOTH, expand=1)
-
-    #Create scrollbars
-    scrollbarX = tk.Scrollbar(frame, bg='grey')
-    scrollbarX.activate()
-
-    ID = 1
-    status = "1"
-
-    for row in range(50):
-        for col in range(50):
-            tile = Tile.make_tile(ID, [row, col], status)
-            cell = tk.Label(frame, text=tile.status, bg="green")
-            cell.grid(row=row, column=col, padx='1', pady='1')
-            ID += 1
-            
-draw()
-root.mainloop()
-'''
-
-
-
-
-
-
-class Example(tk.Frame):
+class Grid(tk.Frame):
     def __init__(self, root):
 
         tk.Frame.__init__(self, root)
@@ -56,10 +26,10 @@ class Example(tk.Frame):
         ID = 1
         status = "1"
 
-        for row in range(50):
-            for col in range(50):
+        for row in range(120):
+            for col in range(160):
                 tile = Tile.make_tile(ID, [row, col], status)
-                cell = tk.Label(self.frame, text=tile.ID, bg="green")
+                cell = tk.Label(self.frame, text=tile.status, bg="green")
                 cell.grid(row=row, column=col, padx='1', pady='1')
                 ID += 1
 
@@ -69,7 +39,7 @@ class Example(tk.Frame):
 
 if __name__ == "__main__":
     root=tk.Tk()
-    Example(root).pack(side="top", fill="both", expand=True)
+    Grid(root).pack(side="top", fill="both", expand=True)
     root.mainloop()
 
 
