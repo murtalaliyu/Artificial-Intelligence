@@ -38,9 +38,12 @@ class Example(tk.Frame):
         self.canvas = tk.Canvas(root, borderwidth=0, background="#ffffff")
         self.frame = tk.Frame(self.canvas, background="#ffffff")
         self.vsb = tk.Scrollbar(root, orient="vertical", command=self.canvas.yview)
+        self.hsb = tk.Scrollbar(root, orient="horizontal", command=self.canvas.xview)
         self.canvas.configure(yscrollcommand=self.vsb.set)
+        self.canvas.configure(xscrollcommand=self.hsb.set)
 
         self.vsb.pack(side="right", fill="y")
+        self.hsb.pack(side="bottom", fill="x")
         self.canvas.pack(side="left", fill="both", expand=True)
         self.canvas.create_window((4,4), window=self.frame, anchor="nw", 
                                   tags="self.frame")
