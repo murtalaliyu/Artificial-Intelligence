@@ -1,7 +1,7 @@
 class Tile(object):
     ID = 0
-    address = ""
-    status = "unblocked"
+    address = []
+    status = "1"
 
     def __init__(self, ID, address, status):
         self.ID = ID
