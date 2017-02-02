@@ -35,9 +35,9 @@ class Grid(tk.Frame):
         #make grid list in the form [[1,[x, y],"c"], [2,[x,y],"d"]] to save our grid in
         gridList = []
 
-        for row in range(10):
+        for row in range(120):
             colList = []
-            for col in range(10):
+            for col in range(160):
                 address = [row, col]
                 global tile
                 tile = Tile.make_tile(ID, address, status)
@@ -46,13 +46,14 @@ class Grid(tk.Frame):
                 cell.grid(row=row, column=col, padx='1', pady='1')
                 ID += 1
             gridList.append(colList)
+        #return gridList        
 
     #select 8 coordinates randomly (xrand, yrand) & set them as hard to traverse
     def hard_to_traverse(self):
         #CONSIDER THE 31x31 REGION CENTERED AT THIS COORDINATE PAIR FIRST        
         for coordinate in range(8):
-            Xcoordinate = int(random.random() * 10)
-            Ycoordinate = int(random.random() * 10)
+            Xcoordinate = int(random.random() * 120)
+            Ycoordinate = int(random.random() * 160)
 
             #choose with prob 50% to mark it as a hard to taverse cell
             prob = int(random.random() * 2)
