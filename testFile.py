@@ -1,5 +1,4 @@
-import Tile
+import Grid
 
-tile = Tile.make_tile(21, [12, 50], "a")
-
-print(tile.ID, tile.address, tile.status)
+lists = Grid.populate(self)
+print lists
