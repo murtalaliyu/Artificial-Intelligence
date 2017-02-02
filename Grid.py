@@ -22,6 +22,7 @@ class Grid(tk.Frame):
         self.frame.bind("<Configure>", self.onFrameConfigure)
 
         self.populate()
+        self.hard_to_traverse()
 
     def onFrameConfigure(self, event):
         '''Reset the scroll region to encompass the inner frame'''
@@ -31,13 +32,14 @@ class Grid(tk.Frame):
     def populate(self):
         ID = 1
         status = "1"
-        #make grid list in the form [[a,b,c], [x,y,z]] to save our grid in
+        #make grid list in the form [[1,[x, y],"c"], [2,[x,y],"d"]] to save our grid in
         gridList = []
 
         for row in range(10):
             colList = []
             for col in range(10):
                 address = [row, col]
+                global tile
                 tile = Tile.make_tile(ID, address, status)
                 colList.append([ID, address, status])
                 cell = tk.Label(self.frame, text=tile.status, bg="green")
@@ -45,7 +47,9 @@ class Grid(tk.Frame):
                 ID += 1
             gridList.append(colList)
 
-        #select 8 coordinates randomly (xrand, yrand)
+    #select 8 coordinates randomly (xrand, yrand) & set them as hard to traverse
+    def hard_to_traverse(self):
+        #CONSIDER THE 31x31 REGION CENTERED AT THIS COORDINATE PAIR FIRST        
         for coordinate in range(8):
             Xcoordinate = int(random.random() * 10)
             Ycoordinate = int(random.random() * 10)
@@ -58,10 +62,6 @@ class Grid(tk.Frame):
                 cell = tk.Label(self.frame, text=tile.status, bg="yellow")
                 cell.grid(row=Xcoordinate, column=Ycoordinate, padx="1", pady="1")
                 print tile.status
-            
-
-        '''cell = tk.Label(self.frame, text=tile.status, bg="blue")
-        cell.grid(row=1, column=1, padx='1', pady='1')'''
 
 if __name__ == "__main__":
     root=tk.Tk()
