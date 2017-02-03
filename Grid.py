@@ -22,8 +22,15 @@ class Grid(tk.Frame):
 
         self.frame.bind("<Configure>", self.onFrameConfigure)
 
+        start = time.time()
         self.populate()
+        end = time.time() - start
+        print "time1: %d" % end
+
+        start = time.time()
         self.hard_to_traverse()
+        end = time.time() - start
+        print "time2: %d" % end
 
     def onFrameConfigure(self, event):
         '''Reset the scroll region to encompass the inner frame'''
@@ -77,22 +84,23 @@ class Grid(tk.Frame):
                 col_down = 119
                 print col_down
             if (Ycoordinate-31) >= 0:
-                col_up = Ycoordinate
+                col_up = Ycoordinate - 31
                 print col_up
             else:
                 col_up = 0
                 print col_up
             
             #choose with prob 50% to mark it as a hard to taverse cell
-            '''for x in range(row_left, row_right+1):
-                for y in range():
+            for x in range(row_left, row_right):
+                for y in range(col_up, col_down):
                     prob = int(random.random() * 2)
+                    print [x, y]
                     if prob == 1:
-                        tile.address = [Xcoordinate, Ycoordinate]
+                        tile.address = [x, y]
                         tile.status = "2"
                         cell = tk.Label(self.frame, text=tile.status, bg="yellow")
-                        cell.grid(row=Xcoordinate, column=Ycoordinate, padx="1", pady="1", columnspan=1, rowspan=1)
-                        print tile.status'''
+                        cell.grid(row=x, column=y, padx="1", pady="1", columnspan=1, rowspan=1)
+                    print tile.status
 
 if __name__ == "__main__":
     root=tk.Tk()
