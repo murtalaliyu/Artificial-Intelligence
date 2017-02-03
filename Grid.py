@@ -73,6 +73,9 @@ class Grid(tk.Frame):
             else:
                 col_up = 0
 
+            #CONSIDER THE 31x31 REGION CENTERED AT THIS COORDINATE PAIR FIRST 
+            
+            
             #choose with prob 50% to mark it as a hard to taverse cell
             for x in range(row_left, row_right+1):
                 for y in range():
