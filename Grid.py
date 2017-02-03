@@ -49,12 +49,14 @@ class Grid(tk.Frame):
         #return gridList        
 
     #select 8 coordinates randomly (xrand, yrand) & set them as hard to traverse
-    def hard_to_traverse(self):
-        #CONSIDER THE 31x31 REGION CENTERED AT THIS COORDINATE PAIR FIRST        
+    def hard_to_traverse(self):       
         for coordinate in range(8):
             Xcoordinate = int(random.random() * 120)
             Ycoordinate = int(random.random() * 160)
 
+            #CONSIDER THE 31x31 REGION CENTERED AT THIS COORDINATE PAIR FIRST 
+            
+            
             #choose with prob 50% to mark it as a hard to taverse cell
             prob = int(random.random() * 2)
             if prob == 1:
