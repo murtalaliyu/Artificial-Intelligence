@@ -91,8 +91,8 @@ class Grid(tk.Frame):
                 print col_up
             
             #choose with prob 50% to mark it as a hard to taverse cell
-            for x in range(row_left, row_right):
-                for y in range(col_up, col_down):
+            for x in range(row_left, row_right+1):
+                for y in range(col_up, col_down+1):
                     prob = int(random.random() * 2)
                     print [x, y]
                     if prob == 1:
