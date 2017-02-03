@@ -36,9 +36,9 @@ class Grid(tk.Frame):
         #make grid list in the form [[1,[x, y],"c"], [2,[x,y],"d"]] to save our grid in
         gridList = []
 
-        for row in range(50):
+        for row in range(120):
             colList = []
-            for col in range(50):
+            for col in range(160):
                 address = [row, col]
                 global tile
                 tile = Tile.make_tile(ID, address, status)
@@ -52,32 +52,39 @@ class Grid(tk.Frame):
     #select 8 coordinates randomly (xrand, yrand) & set them as hard to traverse
     def hard_to_traverse(self):       
         for coordinate in range(8):
-            Xcoordinate = int(random.random() * 50)
-            Ycoordinate = int(random.random() * 50)
+            Xcoordinate = int(random.random() * 120)
+            Ycoordinate = int(random.random() * 160)
+            print "Xcoordinate: %d" % Xcoordinate
+            print "Ycoordinate: %d" % Ycoordinate
 
             #CONSIDER THE 31x31 REGION CENTERED AT THIS COORDINATE PAIR FIRST 
-            '''if (Xcoordinate+31) <= 159:
+            if (Xcoordinate+31) <= 159:
                 row_right = Xcoordinate + 31
+                print row_right
             else: 
                 row_right = 159
+                print row_right
             if (Xcoordinate-31) >= 0:
                 row_left = Xcoordinate - 31
+                print row_left
             else:
                 row_left = 0
+                print row_left
             if (Ycoordinate+31) <= 119:
                 col_down = Ycoordinate + 31
+                print col_down
             else:
                 col_down = 119
+                print col_down
             if (Ycoordinate-31) >= 0:
                 col_up = Ycoordinate
+                print col_up
             else:
                 col_up = 0
-
-            #CONSIDER THE 31x31 REGION CENTERED AT THIS COORDINATE PAIR FIRST 
-            
+                print col_up
             
             #choose with prob 50% to mark it as a hard to taverse cell
-            for x in range(row_left, row_right+1):
+            '''for x in range(row_left, row_right+1):
                 for y in range():
                     prob = int(random.random() * 2)
                     if prob == 1:
