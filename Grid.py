@@ -22,15 +22,8 @@ class Grid(tk.Frame):
 
         self.frame.bind("<Configure>", self.onFrameConfigure)
 
-        start = time.time()
         self.populate()
-        end = time.time() - start
-        print "time1: %d" % end
-
-        start = time.time()
         self.hard_to_traverse()
-        end = time.time() - start
-        print "time2: %d" % end
 
     def onFrameConfigure(self, event):
         '''Reset the scroll region to encompass the inner frame'''
@@ -64,43 +57,45 @@ class Grid(tk.Frame):
             print "Xcoordinate: %d" % Xcoordinate
             print "Ycoordinate: %d" % Ycoordinate
 
-            #CONSIDER THE 31x31 REGION CENTERED AT THIS COORDINATE PAIR FIRST 
-            if (Xcoordinate+31) <= 159:
-                row_right = Xcoordinate + 31
-                print row_right
-            else: 
-                row_right = 159
-                print row_right
-            if (Xcoordinate-31) >= 0:
-                row_left = Xcoordinate - 31
-                print row_left
-            else:
-                row_left = 0
-                print row_left
-            if (Ycoordinate+31) <= 119:
-                col_down = Ycoordinate + 31
-                print col_down
-            else:
-                col_down = 119
-                print col_down
-            if (Ycoordinate-31) >= 0:
-                col_up = Ycoordinate - 31
-                print col_up
-            else:
-                col_up = 0
-                print col_up
-            
-            #choose with prob 50% to mark it as a hard to taverse cell
-            for x in range(row_left, row_right+1):
-                for y in range(col_up, col_down+1):
-                    prob = int(random.random() * 2)
-                    print [x, y]
-                    if prob == 1:
-                        tile.address = [x, y]
-                        tile.status = "2"
-                        cell = tk.Label(self.frame, text=tile.status, bg="yellow")
-                        cell.grid(row=x, column=y, padx="1", pady="1", columnspan=1, rowspan=1)
-                    print tile.status
+            tile.address == [Xcoordinate, Ycoordinate]
+            #NEEDS SOME MORE LOOKING INTO
+            if tile.status == "1":
+                #CONSIDER THE 31x31 REGION CENTERED AT THIS COORDINATE PAIR FIRST 
+                if (Xcoordinate+31) <= 159:
+                    row_right = Xcoordinate + 31
+                    print row_right
+                else: 
+                    row_right = 159
+                    print row_right
+                if (Xcoordinate-31) >= 0:
+                    row_left = Xcoordinate - 31
+                    print row_left
+                else:
+                    row_left = 0
+                    print row_left
+                if (Ycoordinate+31) <= 119:
+                    col_down = Ycoordinate + 31
+                    print col_down
+                else:
+                    col_down = 119
+                    print col_down
+                if (Ycoordinate-31) >= 0:
+                    col_up = Ycoordinate - 31
+                    print col_up
+                else:
+                    col_up = 0
+                    print col_up
+                
+                #choose with prob 50% to mark it as a hard to taverse cell
+                for x in range(row_left, row_right+1):
+                    for y in range(col_up, col_down+1):
+                        print [x, y]
+                        prob = int(random.random() * 2)
+                        if prob == 1:
+                            tile.address = [x, y]
+                            tile.status = "2"
+                            cell = tk.Label(self.frame, text=tile.status, bg="yellow")
+                            cell.grid(row=x, column=y, padx="1", pady="1", columnspan=1, rowspan=1)
 
 if __name__ == "__main__":
     root=tk.Tk()
