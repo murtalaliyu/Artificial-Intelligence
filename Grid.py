@@ -1,3 +1,4 @@
+
 import Tile
 import Tkinter as tk
 import random
@@ -6,7 +7,6 @@ import time
 #class Grid():
     
 '''def __init__(self, root):
-
     tk.Frame.__init__(self, root)
     self.canvas = tk.Canvas(root, borderwidth=0, background="#ffffff")
     self.frame = tk.Frame(self.canvas, background="#ffffff")
@@ -14,19 +14,15 @@ import time
     self.hsb = tk.Scrollbar(root, orient="horizontal", command=self.canvas.xview)
     self.canvas.configure(yscrollcommand=self.vsb.set)
     self.canvas.configure(xscrollcommand=self.hsb.set)
-
     self.vsb.pack(side="right", fill="y")
     self.hsb.pack(side="bottom", fill="x")
     self.canvas.pack(side="left", fill="both", expand=True)
     self.canvas.create_window((4,4), window=self.frame, anchor="nw", 
                               tags="self.frame")
-
     self.frame.bind("<Configure>", self.onFrameConfigure)
-
     self.populate()
     self.hard_to_traverse()
     self.highways()
-
 def onFrameConfigure(self, event):
     
     #Reset the scroll region to encompass the inner frame
