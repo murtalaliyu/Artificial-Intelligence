@@ -120,7 +120,7 @@ def highways():
     distance = 0    #has to be >= 100
 
     #select random cell at grid boundary
-    while iterator <= 4:
+    while iterator < 4:
         Xcoordinate = int(random.random() * 120)
         Ycoordinate = int(random.random() * 160)
         
@@ -134,74 +134,77 @@ def highways():
         elif prob1 == 3:
             Ycoordinate = 159
 
-        #if [Xcoordinate, Ycoordinate] not in paths:
-        #print [Xcoordinate, Ycoordinate]
+        print "prob1: %d" % prob1
 
         #mark highway's first 20 cells
         if Xcoordinate == 0:
             for x in range(20):
                 tile.address = [x, Ycoordinate]
+                print tile.address
                 if tile.status != "a":
                     if tile.status != "b":
                         if tile.status == "2":
                             tile.status = "b"
                         else:
                             tile.status = "a"
+                        paths.append([x, Ycoordinate])
                         #cell = tk.Label(self.frame, text=tile.status, bg="blue")
                         #cell.grid(row=x, column=Ycoordinate, padx="1", pady="1", columnspan=1, rowspan=1)
-                        iterator += 1
-                        paths.append([x, Ycoordinate])
-                        print [x, Ycoordinate]
-                        print "iterator: %d" % iterator
+            iterator += 1
+            print "iterator: %d" % iterator
+            print "------------------"
         if Xcoordinate == 119:
             x = 119
             while x > 99:
                 tile.address = [x, Ycoordinate]
+                print tile.address
                 if tile.status != "a":
                     if tile.status != "b":
                         if tile.status == "2":
                             tile.status = "b"
                         else:
                             tile.status = "a"
+                        paths.append([x, Ycoordinate])
                         #cell = tk.Label(self.frame, text=tile.status, bg="blue")
                         #cell.grid(row=x, column=Ycoordinate, padx="1", pady="1", columnspan=1, rowspan=1)  
-                        x -= 1
-                        iterator += 1
-                        paths.append([x, Ycoordinate])
-                        print [x, Ycoordinate]
-                        print "iterator: %d" % iterator
+                x -= 1
+            iterator += 1
+            print "iterator: %d" % iterator
+            print "------------------"
         if Ycoordinate == 0:
             for y in range(20):
                 tile.address = [Xcoordinate, y]
+                print tile.address
                 if tile.status != "a":
                     if tile.status != "b":
                         if tile.status == "2":
                             tile.status = "b"
                         else:
                             tile.status = "a"
+                        paths.append([Xcoordinate, y])
                         #cell = tk.Label(self.frame, text=tile.status, bg="blue")
                         #cell.grid(row=Xcoordinate, column=y, padx="1", pady="1", columnspan=1, rowspan=1)
-                        iterator += 1
-                        paths.append([Xcoordinate, y])
-                        print "iterator: %d" % iterator
-                        print [Xcoordinate, y]
+            iterator += 1
+            print "iterator: %d" % iterator
+            print "------------------"
         if Ycoordinate == 159:
             y = 159
             while y > 139:
                 tile.address = [Xcoordinate, y]
+                print tile.address
                 if tile.status != "a":
                     if tile.status != "b":
                         if tile.status == "2":
                             tile.status = "b"
                         else:
                             tile.status = "a"
+                        paths.append([Xcoordinate, y])
                         #cell = tk.Label(self.frame, text=tile.status, bg="blue")
                         #cell.grid(row=Xcoordinate, column=y, padx="1", pady="1", columnspan=1, rowspan=1)
-                        y -= 1
-                        iterator += 1
-                        paths.append([Xcoordinate, y])
-                        print [Xcoordinate, y]
-                        print "iterator: %d" % iterator
+                y -= 1
+            iterator += 1
+            print "iterator: %d" % iterator
+            print "------------------"
 
     #select set of 20 paths till we reach boundary
     return paths   
