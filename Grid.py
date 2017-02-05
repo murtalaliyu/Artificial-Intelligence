@@ -67,27 +67,29 @@ class Grid(tk.Frame):
                 iterator += 1
                 hardToTraverseList.append([Xcoordinate, Ycoordinate])
 
-                northWest = Xcoordinate - 31
-                northEast = Ycoordinate + 31
-                southWest = Xcoordinate + 31
+                xMinus = Xcoordinate - 31
+                xPlus = Xcoordinate + 31
+                yPlus = Ycoordinate + 31
+                yMinus = Ycoordinate - 31
 
                 #sides
-                if (northEast < 0):
-                    northEast = 0
-                if northWest < 0:
-                    northWest = 0
-                if (northWest > 159):
-                    northwest = 159
-                if southWest > 120:
-                    southWest = 120
+                if (xMinus <= 0):
+                    xMinus = 0
+                if xPlus >= 119:
+                    xPlus = 119
+                if (yPlus >= 159):
+                    yPlus = 159
+                if yMinus <= 0:
+                    yMinus = 0
 
-                print "northWest: %d" % northWest
-                print "northEast: %d" % northEast
-                print "southWest: %d" % southWest
+                print "xMinus: %d" % xMinus
+                print "xPlus: %d" % xPlus
+                print "yMinus: %d" % yMinus
+                print "yPlus: %d" % yPlus
                 print "----------------"
                 
-                for x in range(northWest, southWest):
-                    for y in range(northWest, northEast):
+                for x in range(xMinus, xPlus):
+                    for y in range(yMinus, yPlus):
                         prob = int(random.random() *2)
                         if prob == 1:
                             tile.adress = [x, y]
