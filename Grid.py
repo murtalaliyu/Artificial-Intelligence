@@ -33,8 +33,7 @@ class Grid(tk.Frame):
     def populate(self):
         ID = 1
         status = "1"
-        #make grid list in the form [[1,[x, y],"c"], [2,[x,y],"d"]] to save our grid in
-        gridList = []
+        gridList = []   #grid list to save our grid in
 
         for row in range(120):
             colList = []
@@ -49,12 +48,13 @@ class Grid(tk.Frame):
             gridList.append(colList)
         #return gridList        
 
-    #select 8 coordinates randomly (xrand, yrand) & set them as hard to traverse
+    #select 8 random cells & make them hard to traverse
     def hard_to_traverse(self):
 
         iterator = 0
         hardToTraverseList = []
-        
+
+        print "1. randomly select hard to traverse cells" 
         while iterator < 8:
 
             Xcoordinate = int(random.random() * 120)
@@ -67,20 +67,27 @@ class Grid(tk.Frame):
                 iterator += 1
                 hardToTraverseList.append([Xcoordinate, Ycoordinate])
 
-                top_left = Xcoordinate - 31
-                top_right = Ycoordinate + 31
-                bottom_left = Xcoordinate + 31
+                northWest = Xcoordinate - 31
+                northEast = Ycoordinate + 31
+                southWest = Xcoordinate + 31
 
-                #sides-31
-                if (top_left < 0):
-                    top_left = 0
-                if (top_right > 159):
-                    top_right = 159
-                if bottom_left > 120:
-                    bottom_left = 120
+                #sides
+                if (northEast < 0):
+                    northEast = 0
+                if northWest < 0:
+                    northWest = 0
+                if (northWest > 159):
+                    northwest = 159
+                if southWest > 120:
+                    southWest = 120
+
+                print "northWest: %d" % northWest
+                print "northEast: %d" % northEast
+                print "southWest: %d" % southWest
+                print "----------------"
                 
-                for x in range(top_left, bottom_left):
-                    for y in range(top_left, top_right):
+                for x in range(northWest, southWest):
+                    for y in range(northWest, northEast):
                         prob = int(random.random() *2)
                         if prob == 1:
                             tile.adress = [x, y]
