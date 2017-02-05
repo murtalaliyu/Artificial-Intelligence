@@ -1,52 +1,57 @@
-
 import Tile
 import Tkinter as tk
 import random
 import time
 
-#class Grid():
-    
-'''def __init__(self, root):
-    tk.Frame.__init__(self, root)
-    self.canvas = tk.Canvas(root, borderwidth=0, background="#ffffff")
-    self.frame = tk.Frame(self.canvas, background="#ffffff")
-    self.vsb = tk.Scrollbar(root, orient="vertical", command=self.canvas.yview)
-    self.hsb = tk.Scrollbar(root, orient="horizontal", command=self.canvas.xview)
-    self.canvas.configure(yscrollcommand=self.vsb.set)
-    self.canvas.configure(xscrollcommand=self.hsb.set)
-    self.vsb.pack(side="right", fill="y")
-    self.hsb.pack(side="bottom", fill="x")
-    self.canvas.pack(side="left", fill="both", expand=True)
-    self.canvas.create_window((4,4), window=self.frame, anchor="nw", 
-                              tags="self.frame")
-    self.frame.bind("<Configure>", self.onFrameConfigure)
-    self.populate()
-    self.hard_to_traverse()
-    self.highways()
-def onFrameConfigure(self, event):
-    
-    #Reset the scroll region to encompass the inner frame
-    self.canvas.configure(scrollregion=self.canvas.bbox("all"))'''
+class Grid(tk.Frame):
+    def __init__(self, root, rows=120, columns=160, size=32):
+        self.rows = rows
+        self.columns = columns
+        self.size = size
+
+        tk.Frame.__init__(self, root)
+        self.canvas = tk.Canvas(self, borderwidth=0, highlightthickness=0,
+                             width=(columns*size), height=(rows*size), background="white")
+        self.canvas.pack(side="top", fill="both", expand=True, padx=2, pady=2)
+
+        self.canvas.bind("<Configure>", self.populate)
+
+    #self.populate()
+    #self.hard_to_traverse()
+    #self.highways()
 
 #Create and populate grid    
-def populate():
+    def populate(self, event):
 
-    ID = 1
-    status = "1"
-    gridList = []   #grid list to save our grid in
+        ID = 1
+        status = "1"
+        gridList = []   #grid list to save our grid in
+        xsize = int((event.width - 1) / self.columns)
+        ysize = int((event.height - 1) / self.rows)
+        self.size = min(xsize, ysize)
+        self.canvas.delete("square")
 
-    for row in range(120):
-        colList = []
-        for col in range(160):
-            address = [row, col]
-            global tile
-            tile = Tile.make_tile(ID, address, status)
-            colList.append([ID, address, status])
-            #cell = tk.Label(self.frame, text=tile.status, bg="green")
-            #cell.grid(row=row, column=col, padx='1', pady='1', columnspan=1, rowspan=1)
-            ID += 1
-        gridList.append(colList)
-    return gridList        
+
+        for row in range(self.rows):
+            colList = []
+            for col in range(self.columns):
+                address = [row, col]
+                global tile
+                tile = Tile.make_tile(ID, address, status)
+                colList.append([ID, address, status])
+                #cell = tk.Label(self.frame, text=tile.status, bg="green")
+                #cell.grid(row=row, column=col, padx='1', pady='1', columnspan=1, rowspan=1)
+
+                x1 = (col * self.size)
+                y1 = (row * self.size)
+                x2 = x1 + self.size
+                y2 = y1 + self.size
+                self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="green", tags="")
+
+                ID += 1
+            gridList.append(colList)
+
+        #return gridList
 
 #select 8 random cells & make them hard to traverse
 def hard_to_traverse():
@@ -116,7 +121,7 @@ def highways():
     distance = 0    #has to be >= 100
 
     #select random cell at grid boundary
-    while iterator < 4:
+    while iterator <= 4:
         Xcoordinate = int(random.random() * 120)
         Ycoordinate = int(random.random() * 160)
         
@@ -130,88 +135,85 @@ def highways():
         elif prob1 == 3:
             Ycoordinate = 159
 
-        print "prob1: %d" % prob1
+        #if [Xcoordinate, Ycoordinate] not in paths:
+        #print [Xcoordinate, Ycoordinate]
 
         #mark highway's first 20 cells
         if Xcoordinate == 0:
             for x in range(20):
                 tile.address = [x, Ycoordinate]
-                print tile.address
                 if tile.status != "a":
                     if tile.status != "b":
                         if tile.status == "2":
                             tile.status = "b"
                         else:
                             tile.status = "a"
-                        paths.append([x, Ycoordinate])
                         #cell = tk.Label(self.frame, text=tile.status, bg="blue")
                         #cell.grid(row=x, column=Ycoordinate, padx="1", pady="1", columnspan=1, rowspan=1)
-            iterator += 1
-            print "iterator: %d" % iterator
-            print "------------------"
+                        iterator += 1
+                        paths.append([x, Ycoordinate])
+                        print [x, Ycoordinate]
+                        print "iterator: %d" % iterator
         if Xcoordinate == 119:
             x = 119
             while x > 99:
                 tile.address = [x, Ycoordinate]
-                print tile.address
                 if tile.status != "a":
                     if tile.status != "b":
                         if tile.status == "2":
                             tile.status = "b"
                         else:
                             tile.status = "a"
-                        paths.append([x, Ycoordinate])
                         #cell = tk.Label(self.frame, text=tile.status, bg="blue")
                         #cell.grid(row=x, column=Ycoordinate, padx="1", pady="1", columnspan=1, rowspan=1)  
-                x -= 1
-            iterator += 1
-            print "iterator: %d" % iterator
-            print "------------------"
+                        x -= 1
+                        iterator += 1
+                        paths.append([x, Ycoordinate])
+                        print [x, Ycoordinate]
+                        print "iterator: %d" % iterator
         if Ycoordinate == 0:
             for y in range(20):
                 tile.address = [Xcoordinate, y]
-                print tile.address
                 if tile.status != "a":
                     if tile.status != "b":
                         if tile.status == "2":
                             tile.status = "b"
                         else:
                             tile.status = "a"
-                        paths.append([Xcoordinate, y])
                         #cell = tk.Label(self.frame, text=tile.status, bg="blue")
                         #cell.grid(row=Xcoordinate, column=y, padx="1", pady="1", columnspan=1, rowspan=1)
-            iterator += 1
-            print "iterator: %d" % iterator
-            print "------------------"
+                        iterator += 1
+                        paths.append([Xcoordinate, y])
+                        print "iterator: %d" % iterator
+                        print [Xcoordinate, y]
         if Ycoordinate == 159:
             y = 159
             while y > 139:
                 tile.address = [Xcoordinate, y]
-                print tile.address
                 if tile.status != "a":
                     if tile.status != "b":
                         if tile.status == "2":
                             tile.status = "b"
                         else:
                             tile.status = "a"
-                        paths.append([Xcoordinate, y])
                         #cell = tk.Label(self.frame, text=tile.status, bg="blue")
                         #cell.grid(row=Xcoordinate, column=y, padx="1", pady="1", columnspan=1, rowspan=1)
-                y -= 1
-            iterator += 1
-            print "iterator: %d" % iterator
-            print "------------------"
+                        y -= 1
+                        iterator += 1
+                        paths.append([Xcoordinate, y])
+                        print [Xcoordinate, y]
+                        print "iterator: %d" % iterator
 
     #select set of 20 paths till we reach boundary
     return paths   
                 
             
 
-'''if __name__ == "__main__":
+if __name__ == "__main__":
     root=tk.Tk()
-    Grid(root).pack(fill="both", expand=True)
-    root.mainloop()'''
+    Grid(root).pack(side="top", fill="both", expand="true", padx=4, pady=4)
+    root.mainloop()
 
-populate()
-hard_to_traverse()
-highways()
+#populate()
+#hard_to_traverse()
+#highways()
