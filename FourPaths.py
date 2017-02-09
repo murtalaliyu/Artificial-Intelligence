@@ -7,8 +7,8 @@ def four_paths():
     print "2. Randomly select 4 paths"
     iterator = 0
     paths = []
-    global start
-    start = []
+    #global start
+    #start = []
 
     #select random cell at grid boundary
     while iterator < 4:
