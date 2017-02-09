@@ -24,10 +24,10 @@ def hard():
             iterator += 1
             hardToTraverseList.append([Xcoordinate, Ycoordinate])
 
-            xMinus = Xcoordinate - 31
-            xPlus = Xcoordinate + 31
-            yPlus = Ycoordinate + 31
-            yMinus = Ycoordinate - 31
+            xMinus = Xcoordinate - 15
+            xPlus = Xcoordinate + 15
+            yPlus = Ycoordinate + 15
+            yMinus = Ycoordinate - 15
 
             #sides
             if (xMinus <= 0):
@@ -49,8 +49,8 @@ def hard():
             else:
                 print "----------------"
             
-            for x in range(xMinus, xPlus):
-                for y in range(yMinus, yPlus):
+            for x in range(xMinus, xPlus+1):
+                for y in range(yMinus, yPlus+1):
                     prob = int(random.random() *2)
                     if prob == 1:
                         list2[(x*160)+y].status = "2"

@@ -72,7 +72,7 @@ class Grid(tk.Frame):
        
     #select the first 20 cells to be highways, 4 times
     def four_paths(self, event):
-        list3 = FourPaths.four_paths()
+        list3 = FourPaths.four_paths()[0]
         xsize = int((event.width - 1) / self.columns)
         ysize = int((event.height - 1) / self.rows)
         self.size = min(xsize, ysize)
