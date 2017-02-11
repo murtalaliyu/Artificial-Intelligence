@@ -11,7 +11,7 @@ def hard():
     hardToTraverseList = []
     list2 = Gridlist.populate()
 
-    print "1. randomly select hard to traverse cells" 
+    print "1. randomly select hard to traverse cells around 31x31 tiles" 
     while iterator < 8:
 
         Xcoordinate = int(random.random() * 120)

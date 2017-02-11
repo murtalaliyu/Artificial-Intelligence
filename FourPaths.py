@@ -3,11 +3,11 @@ import random
 
 #select the first 20 cells to be highways, 4 times 
 def four_paths():
+    global iterator1
     iterator1 = 0
     global list3
     list3 = Hard.hard()
     print "2. Randomly select 4 paths and assign them as rivers and highways"
-    global iterator
     global paths
     paths = []
 
@@ -75,7 +75,7 @@ def first_twenty_tiles(starting_address):
                     list3[(i*160)+yC].status = "b"
                 i -= 1
                 if i == 100:
-                    final_address = current_address
+                    final_address = [100, yC]
                     print "final_address:", final_address
             #print paths
             #print "current_address:", current_address
@@ -107,7 +107,7 @@ def first_twenty_tiles(starting_address):
                     list3[(xC*160)+j].status = "b"
                 j -= 1
                 if j == 140:
-                    final_address = current_address
+                    final_address = [xC, j]
                     print "final address:", final_address
     
     return final_address
@@ -117,8 +117,47 @@ def first_twenty_tiles(starting_address):
 
 #add rest of highway/river    
 def rest_of_path(continuing_address):
+
+    #with 60% prob move in same direction, else 
+    prob1 = range(5)
+    path_length = 20
+
+    #find out from which corner our path originates from
+    path_corner = originates(starting_address, continuing_address)
+    
+    
+    while path_length < 100:
+        path_length += 1
+
     print "continuing_address:", continuing_address
     print "-----------------------------"
+    if iterator1 == 3:
+        print "-----------------------------"
 
+
+#return corner our path originates from
+def originates(starting_address, continuing_address):
+    path_corner = ""
+    x1 = starting_address[0]
+    y1 = starting_address[1]
+    x2 = continuing_address[0]
+    y2 = continuing_address[1]
+    if y1 == y2 and x1 == 0:
+        path_corner = "top"
+        print "path originates from: ", path_corner
+    elif y1 == y2 and x1 == 119:
+        path_corner = "bottom"
+        print "path originates from: ", path_corner
+    elif x1 == x2 and y1 == 0:
+        path_corner = "left"
+        print "path originates from: ", path_corner
+    elif x1 == x2 and y1 == 159:
+        path_corner = "right"
+        print "path originates from: ", path_corner
+
+    return path_corner
+    
+    
+    
 
 four_paths()

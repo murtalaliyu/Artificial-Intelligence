@@ -3,7 +3,7 @@ import Tile
 #Create and populate gridlist 
 def populate():
 
-    ID = 1
+    ID = -1
     status = "1"
     gridList = []   #grid list to save our grid in
     xsize = 7
@@ -26,3 +26,5 @@ def populate():
             gridList.append(tile)
             
     return gridList
+
+#populate()
