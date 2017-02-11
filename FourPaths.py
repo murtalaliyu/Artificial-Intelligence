@@ -24,11 +24,12 @@ def four_paths():
         if Xcoord == 0 or Xcoord == 119 or Ycoord == 0 or Ycoord == 159:
             global starting_address
             starting_address = [Xcoord, Ycoord]
+            
             if starting_address not in paths:
                 global continuing_address
                 continuing_address = first_twenty_tiles(starting_address)
 
-                rest_of_path(continuing_address)
+                #rest_of_path(continuing_address)
             
                 iterator1 += 1
         #print "iterator:", [Xcoord, Ycoord]
@@ -75,7 +76,7 @@ def first_twenty_tiles(starting_address):
                     list3[(i*160)+yC].status = "b"
                 i -= 1
                 if i == 100:
-                    final_address = [100, yC]
+                    final_address = [i, yC]
                     print "final_address:", final_address
             #print paths
             #print "current_address:", current_address
@@ -84,6 +85,8 @@ def first_twenty_tiles(starting_address):
         for y in range(20):
             current_address = [xC, y]
             if current_address not in paths:
+                paths.append(current_address)
+                #print y+1, "current_address:", current_address
                 status = list3[(xC*160)+y].status
                 if status == "1":
                     list3[(xC*160)+y].status = "a"
@@ -92,6 +95,8 @@ def first_twenty_tiles(starting_address):
                 if y == 19:
                     final_address = current_address
                     print "final address:", final_address
+            #print paths
+            #print "current_address:", current_address
     elif xC > 0 and xC < 119 and yC == 159:
         print "starting address:", [xC, yC]
         j = 159
@@ -109,25 +114,58 @@ def first_twenty_tiles(starting_address):
                 if j == 140:
                     final_address = [xC, j]
                     print "final address:", final_address
+            #print paths
+            #print "current_address:", current_address
     
     return final_address
 
 
 
-
 #add rest of highway/river    
 def rest_of_path(continuing_address):
-
-    #with 60% prob move in same direction, else 
-    prob1 = range(5)
     path_length = 20
+    start_address = starting_address
+    curr_address = continuing_address
+    x1 = start_address[0]
+    y1 = start_address[1]
+    x2 = continuing_address[0]
+    y2 = continuing_address[1]
 
-    #find out from which corner our path originates from
-    path_corner = originates(starting_address, continuing_address)
+    while x2-1 > 0 and x2+1 < 119 and y2-1 > 0 and y2+1 <159:   #reject boundaries
+        prob = int(random.random() * 4)
+        print prob
+        
+        if y1 == y2 and x2 > x1:    #tile was placed from up to down
+            if prob >= 2:   #keep moving down
+                if x2+###################
+            elif prob == 3: #move right
+                pass
+            elif prob == 4: #move left
+                pass
+        elif y1 == y2 and x2 < x1:  #tile was placed from down to up
+            if prob >= 2:   #keep moving up
+                pass
+            elif prob == 3: #move right
+                pass
+            elif prob == 4: #move left
+                pass
+        elif x1 == x2 and y2 > y1:  #tile was placed from left to right
+            if prob >= 2:   #keep moving right
+                pass
+            elif prob == 3: #move down
+                pass
+            elif prob == 4: #move up
+                pass
+        elif x1 == x2 and y2 < y1:  #tile was placed from right to left
+            if prob >= 2:   #keep moving left
+                pass
+            elif prob == 3: #move down
+                pass
+            elif prob == 4: #move up
+                pass
+        
     
-    
-    while path_length < 100:
-        path_length += 1
+
 
     print "continuing_address:", continuing_address
     print "-----------------------------"
@@ -135,28 +173,6 @@ def rest_of_path(continuing_address):
         print "-----------------------------"
 
 
-#return corner our path originates from
-def originates(starting_address, continuing_address):
-    path_corner = ""
-    x1 = starting_address[0]
-    y1 = starting_address[1]
-    x2 = continuing_address[0]
-    y2 = continuing_address[1]
-    if y1 == y2 and x1 == 0:
-        path_corner = "top"
-        print "path originates from: ", path_corner
-    elif y1 == y2 and x1 == 119:
-        path_corner = "bottom"
-        print "path originates from: ", path_corner
-    elif x1 == x2 and y1 == 0:
-        path_corner = "left"
-        print "path originates from: ", path_corner
-    elif x1 == x2 and y1 == 159:
-        path_corner = "right"
-        print "path originates from: ", path_corner
-
-    return path_corner
-    
     
     
 
