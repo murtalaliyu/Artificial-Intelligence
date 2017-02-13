@@ -124,6 +124,8 @@ def first_twenty_tiles(starting_address):
 #add rest of highway/river    
 def rest_of_path(continuing_address):
     path_length = 20
+    iterator2 = 0
+
     start_address = starting_address
     curr_address = continuing_address
     x1 = start_address[0]
@@ -131,39 +133,54 @@ def rest_of_path(continuing_address):
     x2 = continuing_address[0]
     y2 = continuing_address[1]
 
-    while x2-1 > 0 and x2+1 < 119 and y2-1 > 0 and y2+1 <159:   #reject boundaries
-        prob = int(random.random() * 4)
-        print prob
+    #maybe add while iterator2 < 10000 or max number of highways possible
+    while (iterator2<10000) or x2-1 > 0 or x2+1 < 119 or y2-1 > 0 or y2+1 <159:   #reject boundaries
+        prob = int(random.random() * 5)
+        #print prob
         
-        if y1 == y2 and x2 > x1:    #tile was placed from up to down
-            if prob >= 2:   #keep moving down
-                if x2+###################
-            elif prob == 3: #move right
-                pass
-            elif prob == 4: #move left
-                pass
-        elif y1 == y2 and x2 < x1:  #tile was placed from down to up
-            if prob >= 2:   #keep moving up
-                pass
-            elif prob == 3: #move right
-                pass
-            elif prob == 4: #move left
-                pass
-        elif x1 == x2 and y2 > y1:  #tile was placed from left to right
-            if prob >= 2:   #keep moving right
-                pass
-            elif prob == 3: #move down
-                pass
-            elif prob == 4: #move up
-                pass
-        elif x1 == x2 and y2 < y1:  #tile was placed from right to left
-            if prob >= 2:   #keep moving left
-                pass
-            elif prob == 3: #move down
-                pass
-            elif prob == 4: #move up
-                pass
-        
+        if ((y1==y2 and x2>x1)and(prob<=2)) or ((x1==x2 and y2>y1)and(prob==3)) or ((x1==x2 and y2<y1)and(prob==3)):    #move downward
+            #recompute start and continuing addresses
+            x1 = x2 + 1
+            x2 = x2 + 20
+            if x2 <= 119:
+                count = 0
+                for x in range(x1,x2+1):
+                    address = [x, y2]
+                    if address not in paths:
+                        paths.append(address)
+                        count += 1
+                if count == 20:
+                    for x in range(len(paths)-20, len(path)-1):
+                        status = list3[(x*160)+y2].status
+                        if status == "1":
+                            list3[(x*160)+y2].status = "a"
+                        elif status == "2":
+                            list3[(x*160)+y2].status = "b"
+                    iterator2 += 20
+        elif ((y1==y2 and x2>x1)and(prob==3)) or ((y1==y2 and x2<x1)and(prob==3)) or ((x1==x2 and y2>y1)and(prob<=2)):  #move rightward
+            y1 = y2 + 1
+            y2 = y2 + 20
+            if y2 <= 159:
+                count = 0
+                for y in range(y1, y2+1):
+                    address = [x2, y]
+                    if address not in paths:
+                        paths.append(address)
+                        count += 1
+                if count == 20:
+                    for y in range(len(paths)-20, len(path)-1):
+                        status = list3[(x2*160)+y].status
+                        if status == "1":
+                            list3[(x2*160)+y].status = "a"
+                        elif status == "2":
+                            list3[(x2*160)+y].status = "b"
+                    iterator2 += 20
+        elif ((x1==x2 and y2>y1)and(prob==4)) or ((x1==x2 and y1>y2)and(prob==4)) or ((y1==y2 and x1>x2)and(prob<=2)):  #move upward
+            pass
+        elif ((y1==y2 and x2>x1)and(prob==4)) or ((y1==y2 and x1>x2)and(prob==4)) or ((x1==x2 and y1>y2)and(prob<=2)):  #move leftward
+            pass
+
+    #remove addresses from paths if iterator2 < 100
     
 
 
