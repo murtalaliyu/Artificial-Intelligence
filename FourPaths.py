@@ -134,7 +134,7 @@ def rest_of_path(continuing_address):
     y2 = continuing_address[1]
 
     #maybe add while iterator2 < 10000 or max number of highways possible
-    while (iterator2<10000) or x2-1 > 0 or x2+1 < 119 or y2-1 > 0 or y2+1 <159:   #reject boundaries
+    while (iterator2<10000) or x2 > 0 or x2 < 119 or y2 > 0 or y2 < 159:   #reject boundaries
         prob = int(random.random() * 5)
         #print prob
         
@@ -142,15 +142,22 @@ def rest_of_path(continuing_address):
             #recompute start and continuing addresses
             x1 = x2 + 1
             x2 = x2 + 20
-            if x2 <= 119:
+            y1 = y2
+            y2 = y2
+            if x2 <= 119 and x2 >= 0 and y2 >= 0 and y2 <= 159:
+                print "(downward) prob:", prob
+                print "x1:", x1
+                print "x2:", x2
+                print "y:", y2
                 count = 0
                 for x in range(x1,x2+1):
                     address = [x, y2]
                     if address not in paths:
-                        paths.append(address)
                         count += 1
                 if count == 20:
-                    for x in range(len(paths)-20, len(path)-1):
+                    for x in range(x1,x2+1):
+                        address = [x, y2]
+                        paths.append(address)
                         status = list3[(x*160)+y2].status
                         if status == "1":
                             list3[(x*160)+y2].status = "a"
@@ -158,17 +165,24 @@ def rest_of_path(continuing_address):
                             list3[(x*160)+y2].status = "b"
                     iterator2 += 20
         elif ((y1==y2 and x2>x1)and(prob==3)) or ((y1==y2 and x2<x1)and(prob==3)) or ((x1==x2 and y2>y1)and(prob<=2)):  #move rightward
+            x1 = x2
+            x2 = x2
             y1 = y2 + 1
             y2 = y2 + 20
-            if y2 <= 159:
+            if y2 <= 159 and y2 >= 0 and x2 <= 119 and x2 >= 0:
+                print "(rightward) prob:", prob
+                print "y1:", y1
+                print "y2:", y2
+                print "x:", x2
                 count = 0
-                for y in range(y1, y2+1):
+                for y in range(y1, y2):
                     address = [x2, y]
                     if address not in paths:
-                        paths.append(address)
                         count += 1
                 if count == 20:
-                    for y in range(len(paths)-20, len(path)-1):
+                    for y in range(y1, y2):
+                        address = [x2, y]
+                        paths.append(address)
                         status = list3[(x2*160)+y].status
                         if status == "1":
                             list3[(x2*160)+y].status = "a"
@@ -176,9 +190,55 @@ def rest_of_path(continuing_address):
                             list3[(x2*160)+y].status = "b"
                     iterator2 += 20
         elif ((x1==x2 and y2>y1)and(prob==4)) or ((x1==x2 and y1>y2)and(prob==4)) or ((y1==y2 and x1>x2)and(prob<=2)):  #move upward
-            pass
+            x1 = x2 -1
+            x2 = x2 - 20
+            y1 = y2
+            y2 = y2
+            if x2 >= 0 and x2 <= 119 and y2 <= 159 and y2 >= 0:
+                print "(upward) prob:", prob
+                print "x1:", x1
+                print "x2:", x2
+                print "y:", y2
+                count = 0
+                for x in range(x2, x1):
+                    address = [x, y2]
+                    if address not in paths:
+                        count += 1
+                if count == 20:
+                    for x in range(x2, x1):
+                        address = [x, y2]
+                        paths.append(address)
+                        status = list3[(x*160)+y2].status
+                        if status == "1":
+                            list3[(x*160)+y2].status = "a"
+                        elif status == "2":
+                            list3[(x*160)+y2].status = "b"
+                    iterator2 += 20
         elif ((y1==y2 and x2>x1)and(prob==4)) or ((y1==y2 and x1>x2)and(prob==4)) or ((x1==x2 and y1>y2)and(prob<=2)):  #move leftward
-            pass
+            x1 = x2
+            x2 = x2
+            y1 = y2 - 1
+            y2 = y2 - 20
+            if y2 >= 0 and y2 <= 159 and x2 >= 0 and x2 <= 119:
+                print "(leftward) prob:", prob
+                print "y1:", y1
+                print "y2:", y2
+                print "x:", x2
+                count = 0
+                for y in range(y2, y1):
+                    address = [x2, y]
+                    if address not in paths:
+                        count += 1
+                if count == 20:
+                    for y in range(y2, y1):
+                        address = [x2, y]
+                        paths.append(address)
+                        status = list3[(x2*160)+y].status
+                        if status == "1":
+                            list3[(x2*160)+y].status = "a"
+                        elif status == "2":
+                            list3[(x2*160)+y].status = "b"
+                    
 
     #remove addresses from paths if iterator2 < 100
     
