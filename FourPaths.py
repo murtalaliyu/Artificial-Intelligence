@@ -29,9 +29,8 @@ def four_paths():
                 global continuing_address
                 continuing_address = first_twenty_tiles(starting_address)
 
-                if rest_of_path(continuing_address):
-                    iterator1 += 1
-                    print "iterator:", iterator1
+                #rest_of_path(continuing_address)
+                iterator1 += 1
         #print "iterator:", [Xcoord, Ycoord]
     return list3
 
@@ -269,4 +268,4 @@ def rest_of_path(continuing_address):
     
     
 
-four_paths()
+#four_paths()
