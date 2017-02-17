@@ -3,6 +3,7 @@ import Gridlist
 import Hard
 import FourPaths
 import BlockedCells
+import StartGoalVertex
 import Tkinter as tk
 import random
 import time
@@ -98,6 +99,9 @@ class Grid(tk.Frame):
         self.size = min(xsize, ysize)
         self.canvas.delete("square")
 
+        #get start and goal vertexes
+        list4 = StartGoalVertex.start_and_goal()
+
         for x in range(120):
             for y in range(160):
                 x1 = (y * self.size)
@@ -116,6 +120,16 @@ class Grid(tk.Frame):
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="blue", tags="")
                 elif status == "b":
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="red", tags="")
+                elif status == "s":
+                    print "start:", [x, y]
+                    self.canvas.create_rectangle(x1, y1, x2, y2, outline="orange", fill="orange", tags="")
+                elif status == "g":
+                    print "goal:", [x, y]
+                    self.canvas.create_rectangle(x1, y1, x2, y2, outline="pink", fill="pink", tags="")
+
+
+                
+                
 
 
         
