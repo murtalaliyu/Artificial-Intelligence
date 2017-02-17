@@ -1,5 +1,5 @@
 import Tile
-import A_star
+#import A_star
 import Gridlist
 import Hard
 import FourPaths
@@ -94,14 +94,11 @@ class Grid(tk.Frame):
 
     #randomly block 20% of the grid, not including tiles belonging to a highway
     def blocked_cells(self, event):
-        list4 = BlockedCells.block()
+        list4 = StartGoalVertex.start_and_goal()
         xsize = int((event.width - 1) / self.columns)
         ysize = int((event.height - 1) / self.rows)
         self.size = min(xsize, ysize)
         self.canvas.delete("square")
-
-        #get start and goal vertexes
-        list4 = StartGoalVertex.start_and_goal()
 
         for x in range(120):
             for y in range(160):
@@ -113,7 +110,7 @@ class Grid(tk.Frame):
                 status = list4[(x*160)+y].status
                 if status == "0":
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="black", tags="")
-                if status == "1":
+                elif status == "1":
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="green", tags="")
                 elif status == "2":
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="yellow", tags="")
@@ -122,9 +119,11 @@ class Grid(tk.Frame):
                 elif status == "b":
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="red", tags="")
                 elif status == "s":
+                    print "-----------------"
                     print "start:", [x, y]
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="orange", fill="orange", tags="")
                 elif status == "g":
+                    print "-----------------"
                     print "goal:", [x, y]
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="pink", fill="pink", tags="")
 

@@ -31,18 +31,19 @@ def four_paths():
                     
             #add to grid if valid
             if count==20:
-                for i in range(20):
+                '''for i in range(20):
                         currentAddress = [i,y]
                         if currentAddress not in pathList[0]:
                             pathList[1].append(currentAddress)
-                            '''if list3[(i*160)+y].status=="1": 
+                            if list3[(i*160)+y].status=="1": 
                                 list3[(i*160)+y].status = "a"
                             elif list3[(i*160)+y].status=="2":
-                                list3[(i*160)+y].status = "b"'''
-                iterator +=1
+                                list3[(i*160)+y].status = "b"
+                        
+                iterator +=1'''
                 
                 #place rest of path > 100, until hits another border
-                while currentAddress[
+                complete = "false"
                 
                         
         elif y==0: #left side #------------->
@@ -58,15 +59,15 @@ def four_paths():
                     
             #add to grid if valid
             if count==20:
-                for j in range(20):
+                '''for j in range(20):
                     currentAddress = [x,j]
                     if currentAddress not in pathList[1]:
                         pathList[2].append(currentAddress)
-                        '''if list3[(x*160)+j].status=="1":
+                        if list3[(x*160)+j].status=="1":
                             list3[(x*160)+j].status = "a"
                         elif list3[(x*160)+j].status=="2":
-                            list3[(x*160)+j].status = "b"'''
-                iterator +=1
+                            list3[(x*160)+j].status = "b"
+                iterator +=1'''
                 
                 #place rest of path > 100, until hits another border
 
@@ -84,15 +85,15 @@ def four_paths():
                     
             #add to grid if valid
             if count==20:
-                for i in range(100,120):
+                '''for i in range(100,120):
                     currentAddress = [i,y]
                     if currentAddress not in pathList[2]:
                         pathList[3].append(currentAddress)
-                        '''if list3[(i*160)+y].status=="1":
+                        if list3[(i*160)+y].status=="1":
                             list3[(i*160)+y].status = "a"
                         elif list3[(i*160)+y].status=="2":
-                            list3[(i*160)+y].status = "b"'''
-                iterator +=1
+                            list3[(i*160)+y].status = "b"
+                iterator +=1'''
                 
                 #place rest of path > 100, until hits another border
                             
@@ -110,15 +111,16 @@ def four_paths():
                     
              #add to grid if valid
             if count==20:
-                for j in range(140,160):
+                '''for j in range(140,160):
                     currentAddress = [x,j]
                     if currentAddress not in pathList[3]:
                         pathList[3].append(currentAddress)
-                        '''if list3[(x*160)+j].status=="1":
+                        if list3[(x*160)+j].status=="1":
                             list3[(x*160)+j].status = "a"
                         elif list3[(x*160)+j].status=="2":
-                            list3[(x*160)+j].status = "b"'''
+                            list3[(x*160)+j].status = "b"
                 iterator +=1
+                '''
                 
                 #place rest of path > 100, until hits another border
 
@@ -129,39 +131,15 @@ def four_paths():
 def place_downward(currentAddress):
     x = currentAddress[0]
     y = currentAddress[1]
-    current = 0
+    count = 0
 
     #check if valid path
-    if x+19<120:
-        count = 0
+    if x+19 <= 119:
         for i in range(x,x+20):
-            status = list3[(i*160)+y].status
-            if status!="a" or status!="b":
-                count += 1
-                #print "count:", count
-
-        #return true if valid
-        if count==20:
-            for i in range(x,x+20):
-                address = [i,y]
-                pathList[0].append(address)    
-            current = [x+19,y]
-        
-    elif x+19>=120:
-        count = 0
-        for i in range(x,120):
-            status = list3[(i*120)+y]
-            if status!="a" or status!="2":
-                count += 1
-                print "count:", count
-
-        #return true if valid
-        if count==(159-x):
-            for i in range(x,120):
-                address = [i,y]
-                pathList[0].append(address)    
-            current = [119,y]
+            address = [i,y]
+            if address not in pathList:
+                pathList[0].append()
     
-    return current
+    return False
 
 #four_paths()

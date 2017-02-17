@@ -35,8 +35,8 @@ class A_star:
 		return abs(x1-x2) + abs (y1-y2) '''
 
 	def get_distance(s):
-		#need to implement 
-
+                #need to implement 
+                pass
 
 
 	def update_vertex(current, nextVertex):
