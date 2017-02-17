@@ -10,12 +10,13 @@ def block():
     while iterator < num_blocked:
         randx = int(random.random() * 120)
         randy = int(random.random() * 160)
-        #print "iterator:", iterator
+        print "iterator:", iterator
 
         status = list4[(randx*160)+randy].status
         #print "status:", status
         if status == "1" or status == "2":
             list4[(randx*160)+randy].status = "0"
+            
             iterator += 1
             #print "status:", status
 
