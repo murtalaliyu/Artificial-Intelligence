@@ -29,9 +29,9 @@ def four_paths():
                 global continuing_address
                 continuing_address = first_twenty_tiles(starting_address)
 
-                #rest_of_path(continuing_address)
-            
-                iterator1 += 1
+                if rest_of_path(continuing_address):
+                    iterator1 += 1
+                    print "iterator:", iterator1
         #print "iterator:", [Xcoord, Ycoord]
     return list3
 
@@ -120,11 +120,10 @@ def first_twenty_tiles(starting_address):
     return final_address
 
 
-
 #add rest of highway/river    
 def rest_of_path(continuing_address):
     path_length = 20
-    iterator2 = 0
+    a = 1
 
     start_address = starting_address
     curr_address = continuing_address
@@ -133,8 +132,9 @@ def rest_of_path(continuing_address):
     x2 = continuing_address[0]
     y2 = continuing_address[1]
 
-    #maybe add while iterator2 < 10000 or max number of highways possible
-    while (iterator2<10000) or x2 > 0 or x2 < 119 or y2 > 0 or y2 < 159:   #reject boundaries
+    print "a:", a
+    a += 1
+    while (path_length < 100):   
         prob = int(random.random() * 5)
         #print prob
         
@@ -149,21 +149,25 @@ def rest_of_path(continuing_address):
                 print "x1:", x1
                 print "x2:", x2
                 print "y:", y2
+                #print "path length:", path_length
                 count = 0
                 for x in range(x1,x2+1):
                     address = [x, y2]
                     if address not in paths:
                         count += 1
+                        print "downward count:", count
                 if count == 20:
+                    path_length += 20
                     for x in range(x1,x2+1):
                         address = [x, y2]
                         paths.append(address)
                         status = list3[(x*160)+y2].status
                         if status == "1":
                             list3[(x*160)+y2].status = "a"
+                            #print status
                         elif status == "2":
                             list3[(x*160)+y2].status = "b"
-                    iterator2 += 20
+                            #print status
         elif ((y1==y2 and x2>x1)and(prob==3)) or ((y1==y2 and x2<x1)and(prob==3)) or ((x1==x2 and y2>y1)and(prob<=2)):  #move rightward
             x1 = x2
             x2 = x2
@@ -174,21 +178,25 @@ def rest_of_path(continuing_address):
                 print "y1:", y1
                 print "y2:", y2
                 print "x:", x2
+                #print "path length:", path_length
                 count = 0
                 for y in range(y1, y2):
                     address = [x2, y]
                     if address not in paths:
                         count += 1
+                        print "rightward count:", count
                 if count == 20:
+                    path_length += 20
                     for y in range(y1, y2):
                         address = [x2, y]
                         paths.append(address)
                         status = list3[(x2*160)+y].status
                         if status == "1":
                             list3[(x2*160)+y].status = "a"
+                            #print status
                         elif status == "2":
                             list3[(x2*160)+y].status = "b"
-                    iterator2 += 20
+                            #print status
         elif ((x1==x2 and y2>y1)and(prob==4)) or ((x1==x2 and y1>y2)and(prob==4)) or ((y1==y2 and x1>x2)and(prob<=2)):  #move upward
             x1 = x2 -1
             x2 = x2 - 20
@@ -199,21 +207,25 @@ def rest_of_path(continuing_address):
                 print "x1:", x1
                 print "x2:", x2
                 print "y:", y2
+                #print "path length:", path_length
                 count = 0
                 for x in range(x2, x1):
                     address = [x, y2]
                     if address not in paths:
                         count += 1
+                        print "upward count:", count
                 if count == 20:
+                    path_length += 20
                     for x in range(x2, x1):
                         address = [x, y2]
                         paths.append(address)
                         status = list3[(x*160)+y2].status
                         if status == "1":
                             list3[(x*160)+y2].status = "a"
+                            #print status
                         elif status == "2":
                             list3[(x*160)+y2].status = "b"
-                    iterator2 += 20
+                            #print status
         elif ((y1==y2 and x2>x1)and(prob==4)) or ((y1==y2 and x1>x2)and(prob==4)) or ((x1==x2 and y1>y2)and(prob<=2)):  #move leftward
             x1 = x2
             x2 = x2
@@ -224,24 +236,28 @@ def rest_of_path(continuing_address):
                 print "y1:", y1
                 print "y2:", y2
                 print "x:", x2
+                #print "path length:", path_length
                 count = 0
                 for y in range(y2, y1):
                     address = [x2, y]
                     if address not in paths:
                         count += 1
+                        print "leftward count:", count
                 if count == 20:
+                    path_length += 20
                     for y in range(y2, y1):
                         address = [x2, y]
                         paths.append(address)
                         status = list3[(x2*160)+y].status
                         if status == "1":
                             list3[(x2*160)+y].status = "a"
+                            #print status
                         elif status == "2":
                             list3[(x2*160)+y].status = "b"
+                            #print status
                     
-
+    print "a:", a
     #remove addresses from paths if iterator2 < 100
-    
 
 
     print "continuing_address:", continuing_address
