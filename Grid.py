@@ -24,9 +24,6 @@ class Grid(tk.Frame):
         #self.canvas.bind("<Configure>", self.four_paths)
         self.canvas.bind("<Configure>", self.blocked_cells)
 
-
-    
-    
     #Create and populate grid    
     def populate(self, event):
         list1 = Gridlist.populate()
@@ -44,9 +41,6 @@ class Grid(tk.Frame):
                 
                 self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="green", tags="")
         
-
-
-
     #select 8 random cells & make them hard to traverse
     def hard_to_traverse(self, event):
         list2 = Hard.hard()
@@ -69,9 +63,6 @@ class Grid(tk.Frame):
                 elif status == "2":
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="yellow", tags="")
         
-
-    
-       
     #select cells to be highways, 4 times
     def four_paths(self, event):
         list3 = FourPaths.four_paths()
@@ -98,7 +89,6 @@ class Grid(tk.Frame):
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="blue", tags="")
                 elif status == "b":
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill="red", tags="")
-
 
     #randomly block 20% of the grid, not including tiles belonging to a highway
     def blocked_cells(self, event):
