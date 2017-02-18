@@ -1,4 +1,5 @@
 import Tile
+import A_star
 import Gridlist
 import Hard
 import FourPaths

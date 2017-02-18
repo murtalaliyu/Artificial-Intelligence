@@ -1,9 +1,6 @@
 import heapq
 import math
 
-
-
-
 class A_star:
 
 	def __init__(self, start, stop):
@@ -31,13 +28,6 @@ class A_star:
 			return "no path found"
 
 
-
-
-
-
-
-
-
 			# need to finish
 '''	def get_heuristic(a, b):
 		(x1, y1) = a
@@ -57,11 +47,6 @@ class A_star:
 				fringe.remove(nextVertex)
 			heapq.heappush(fringe,nextVertex)
 			heapq.heappush(fringe, (get_distance(nextVertex)+get_heuristic(nextVertex)))
-
-
-
-
-
 
 
 	def get_cost(current, nextVertex, direction):
@@ -85,11 +70,4 @@ class A_star:
 				return sqrt(8)
 			elif (current.status == 1 and nextVertex.status == 2) or (current.status == 2 and nextVertex.status == 1):
 				return ((sqrt(2) + sqrt(8))/2)
-
-
-
-
-
-
-
 
