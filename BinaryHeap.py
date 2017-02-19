@@ -8,7 +8,8 @@ class BinaryHeap:
         return len(self.tiles) == 0
 
     def pop(self):
-    	return heapq.heappop(self.tiles)
+        tile = heapq.heappop(self.tiles)
+    	return tile[1]
     
     def insert(self, tile, priority):
         heapq.heappush(self.tiles, (priority, tile))

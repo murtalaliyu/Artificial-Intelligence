@@ -22,7 +22,7 @@ def populate():
             global tile
             ID += 1
             address = [row, col]
-            tile = Tile.make_tile(ID, address, status)
+            tile = Tile.make_tile(ID, address, status, 0)
             gridList.append(tile)
             
     return gridList
