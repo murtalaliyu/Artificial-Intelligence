@@ -42,7 +42,7 @@ def four_paths():
                 iterator +=1
                 
                 #place rest of path > 100, until hits another border
-                while currentAddress[
+               # while currentAddress[
                 
                         
         elif y==0: #left side #------------->
