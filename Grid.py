@@ -94,11 +94,12 @@ class Grid(tk.Frame):
 
     #randomly block 20% of the grid, not including tiles belonging to a highway
     def blocked_cells(self, event):
-        list4 = StartGoalVertex.start_and_goal()
+        list4 = A_star.Main()
         xsize = int((event.width - 1) / self.columns)
         ysize = int((event.height - 1) / self.rows)
         self.size = min(xsize, ysize)
         self.canvas.delete("square")
+
 
         for x in range(120):
             for y in range(160):
@@ -106,6 +107,7 @@ class Grid(tk.Frame):
                 y1 = (x * self.size)
                 x2 = x1 + self.size
                 y2 = y1 + self.size
+
 
                 status = list4[(x*160)+y].status
                 if status == "0":
@@ -126,6 +128,9 @@ class Grid(tk.Frame):
                     print "-----------------"
                     print "goal:", [x, y]
                     self.canvas.create_rectangle(x1, y1, x2, y2, outline="pink", fill="pink", tags="")
+                elif status == "w":
+                    self.canvas.create_rectangle(x1, y1, x2, y2, outline="white", fill="white", tags="")
+
 
 
                 

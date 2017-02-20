@@ -5,6 +5,8 @@ global start
 global goal
 global fringe
 global fringeList
+global path
+grid_list = StartGoalVertex.start_and_goal()
 
 def getStart(grid_list):
 	for x in range(120):
@@ -27,27 +29,32 @@ def get_heuristic(current):
 
 	return math.sqrt((x2-x1)**2 + (y2-y1)**2)
 
+def calculate_distances(grid_list):
+	start_x = start.address[0]
+	start_y = start.address[1]
 
-grid_list = StartGoalVertex.start_and_goal()
+	for x in range(120):
+		for y in range(160):
+			if grid_list[(x*160+y)].status != "s" and grid_list[(x*160+y)].status != "g":
+				grid_list[(x*160+y)].distance = math.sqrt((x-start_x)**2 + (y-start_y)**2)
+
+
 start = getStart(grid_list)
+#calculate_distances(grid_list)
 start.distance = 0
 #self.start.address[0]
 goal = getGoal(grid_list)
 fringe = BinaryHeap()
 closed = []
 fringeList = []
+path = []
 fringe.insert(start,(start.distance + get_heuristic(start)))
 fringeList.append(start)
 
 
+				
 
-		# need to finish
-
-
-def get_distance(current):
-	(x1, y1) = current
-	(x2, y2) = start
-	return math.sqrt((x2-x1)^2 + (y2-y1)^2)
+	
             
 
 
@@ -60,6 +67,7 @@ def update_vertex(current, nextVertex):
 		#need to change parent here
 		if nextVertex in fringeList:
 			fringe.remove(nextVertex)
+			fringeList.remove(nextVertex)
 		fringe.insert(nextVertex,(nextVertex.distance + get_heuristic(nextVertex)))
 		fringeList.append(nextVertex)
 
@@ -69,21 +77,21 @@ def get_cost(current, nextVertex, direction):
 
 	if direction != "diagonally":
 
-		if current.status == 1 and nextVertex.status == 1:
+		if current.status == "1" and nextVertex.status == "1":
 			return 1
 
-		elif current.status == 2 and nextVertex.status ==2:
+		elif current.status == "2" and nextVertex.status =="2":
 			return 2
-		elif (current.status == 1 and nextVertex.status == 2) or (current.status == 2 and nextVertex.status == 1):
+		elif (current.status == "1" and nextVertex.status == "2") or (current.status == "2" and nextVertex.status == "1"):
 			return 1.5
 
-	else:
-		if current.status == 1 and nextVertex.status == 1:
+	elif direction == "straight":
+		if current.status == "1" and nextVertex.status == "1":
 			return 1
 
-		elif current.status == 2 and nextVertex.status ==2:
+		elif current.status == "2" and nextVertex.status =="2":
 			return math.sqrt(8)
-		elif (current.status == 1 and nextVertex.status == 2) or (current.status == 2 and nextVertex.status == 1):
+		elif (current.status == "1" and nextVertex.status == "2") or (current.status == "2" and nextVertex.status == "1"):
 			return ((math.sqrt(2) + math.sqrt(8))/2)
 
 	return 0
@@ -93,31 +101,48 @@ def neighbors(current):
 	neighbors = []
 	x = current.address[0]
 	y = current.address[1]
-	if grid_list[(x*160)+(y+1)]:
+
+	if grid_list[(x*160)+(y+1)] and grid_list[(x*160)+(y+1)].status != "0":
 		neighbors.append(grid_list[(x*160)+(y+1)]) # tile to right
-	if grid_list[(x*160)+(y-1)]:
+	if grid_list[(x*160)+(y-1)] and grid_list[(x*160)+(y-1)].status != "0":
 		neighbors.append(grid_list[(x*160)+(y-1)]) # tile to left
-	if grid_list[((x+1)*160)+(y)]:
+	if grid_list[((x+1)*160)+(y)] and grid_list[((x+1)*160)+(y)].status != "0":
 		neighbors.append(grid_list[((x+1)*160)+(y)]) # tile below
-	if grid_list[((x-1)*160)+(y)]:
+	if grid_list[((x-1)*160)+(y)] and grid_list[((x-1)*160)+(y)].status != "0":
 		neighbors.append(grid_list[((x-1)*160)+(y)]) # tile above
-	if grid_list[((x-1)*160)+(y+1)]:
+	if grid_list[((x-1)*160)+(y+1)] and grid_list[((x-1)*160)+(y+1)].status != "0":
 		neighbors.append(grid_list[((x-1)*160)+(y+1)]) # tile top right
-	if grid_list[((x-1)*160)+(y-1)]:
+	if grid_list[((x-1)*160)+(y-1)] and grid_list[((x-1)*160)+(y-1)].status != "0":
 		neighbors.append(grid_list[((x-1)*160)+(y-1)]) # tile top left
-	if grid_list[((x+1)*160)+(y+1)]:
+	if grid_list[((x+1)*160)+(y+1)] and grid_list[((x+1)*160)+(y+1)].status != "0":
 		neighbors.append(grid_list[((x+1)*160)+(y+1)]) # tile bottom right
-	if grid_list[((x+1)*160)+(y-1)]:
+	if grid_list[((x+1)*160)+(y-1)] and grid_list[((x+1)*160)+(y-1)].status != "0":
 		neighbors.append(grid_list[((x+1)*160)+(y-1)]) # tile bottom left
 	return neighbors
 
 
 
 def Main():
+	print "start node:", start.address
+	print "goal node:", goal.address
+
 	while not fringe.empty():
 		current = fringe.pop()
+		path.append(current.address)
+		print "current tile:", current.address
 		if current == goal:
-			return "path found"
+			print "path found"
+
+			for tile in path:
+				
+				x = tile[0]
+				y = tile[1]
+				if grid_list[(x*160)+y].status != "s" and grid_list[(x*160)+y].status != "g":
+					grid_list[(x*160)+y].status = "w"
+
+
+
+			return grid_list
 		closed.append(current)
 		for n in neighbors(current): # !!!!need to get a way to return a list of adjacent squares
 			if n not in closed:
@@ -125,7 +150,7 @@ def Main():
 					n.distance = float('inf')
 					#need to update parent here. see a star psedocode in assignment details
 				update_vertex(current,n)
+	print "no path found"
 	return "no path found"
 
-
-Main()
+#Main()

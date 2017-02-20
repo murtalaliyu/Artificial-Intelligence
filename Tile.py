@@ -8,7 +8,7 @@ class Tile(object):
         self.ID = ID
         self.address = address
         self.status = status
-        self.distance = distance
+        self.distance = float('inf')
 
 def make_tile(ID, address, status, distance):
     tile = Tile(ID, address, status, distance)
